@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpModule } from '@angular/http';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+// import 'rxjs/add/operator/map';
 
 import { environment } from './environment';
 
@@ -10,15 +10,19 @@ import { environment } from './environment';
 })
 export class AlphaVantageDataService {
   
-  baseUrl='https://www.alphavantage.co/';
-  symbol='MSFT';
   apiKey=environment.apiKey;
-  url=`${baseUrl}query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=demo`;
   
-  constructor(public http: HttpModule) { }
+  symbol='MSFT';
+  // queryType='GLOBAL_QUOTE';
+  queryType='TIME_SERIES_MONTHLY_ADJUSTED';
+  
+  baseUrl='https://www.alphavantage.co/';
+  queryString=`function=${this.queryType}&symbol=${this.symbol}&apikey=${this.apiKey}`;
+  url=`${this.baseUrl}query?${this.queryString}`;
+  
+  constructor(private http: HttpClient) { }
   
   getAlphaVantageData(){
-    return this.http.get(this.url)
-      .map( res => res.json())
+    return this.http.get(this.url);
   }
 }
