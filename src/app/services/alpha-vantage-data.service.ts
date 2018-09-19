@@ -3,13 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/map';
 
-import { environment } from './environment';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlphaVantageDataService {
-  
   apiKey=environment.apiKey;
   
   symbol='MSFT';
@@ -22,7 +21,8 @@ export class AlphaVantageDataService {
   
   constructor(private http: HttpClient) { }
   
-  getAlphaVantageData(){
-    return this.http.get(this.url);
+  allData: any[];
+  getAVData(){
+    return this.http.get(this.url)
   }
 }
