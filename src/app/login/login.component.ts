@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   constructor(public _userService:UserService) { }
   user:any = {};
@@ -14,11 +14,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
   
-  onRegisterUser() {
-    this._userService.register(this.user)
+   onLoginUser() {
+    this._userService.login(this.user)
       .subscribe((res) => {
-        // sessionStorage.setItem('token', res.token);
-        // sessionStorage.setItem('userId', res.userId);
         console.log(res, "asdf")
         // this._userService.toHomePage(res);
       })
