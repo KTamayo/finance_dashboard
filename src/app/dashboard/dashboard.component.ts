@@ -19,14 +19,12 @@ export class DashboardComponent implements OnInit {
     
     this._service.getAVData().subscribe( (res:any) => {
       this.apiDataMonthly = res["Monthly Adjusted Time Series"];
-      
       console.log(this.apiDataMonthly);
       Object.keys(this.apiDataMonthly).map( key => {
         // console.log(`key: ${k} value: ${this.dataMonthly[k]["4. close"]}`);
         let dataPoint: number = this.apiDataMonthly[key]["4. close"]
         this.allDataMonthly.push(dataPoint);
         this.allDataMonthlyLabels.push(key);
-  
       });
       this.allDataMonthly.reverse();
       this.allDataMonthlyLabels.reverse();
