@@ -7,30 +7,39 @@ import { AlphaVantageDataService } from '../services/alpha-vantage-data.service'
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
   
   constructor(private _service:AlphaVantageDataService) { }
   
+  searchTerm:any;
+  isLoadingData;
   apiDataMonthly: any;
   allDataMonthly: any = [];
   allDataMonthlyLabels: any = [];
   
+  
   ngOnInit() {
-    
+    // this._service.setStockSymbol("MSFT");
+    this.getData();
+  }
+  
+  getData(){
+    this.isLoadingData = true;
+    this.allDataMonthly.length = 0;
+    this.allDataMonthlyLabels.length = 0;
     this._service.getAVData().subscribe( (res:any) => {
       this.apiDataMonthly = res["Monthly Adjusted Time Series"];
-      console.log(this.apiDataMonthly);
+      
+      // console.log(this.apiDataMonthly);
       Object.keys(this.apiDataMonthly).map( key => {
         // console.log(`key: ${k} value: ${this.dataMonthly[k]["4. close"]}`);
         let dataPoint: number = this.apiDataMonthly[key]["4. close"]
         this.allDataMonthly.push(dataPoint);
         this.allDataMonthlyLabels.push(key);
       });
-      this.allDataMonthly.reverse();
-      this.allDataMonthlyLabels.reverse();
-      this.lineChartData = [{data:this.allDataMonthly, label: "Closing"}];
-      console.log(this.lineChartData);
-      console.log(this.allDataMonthlyLabels);
+      // console.log(this.lineChartData);
+      // console.log(this.allDataMonthlyLabels);
       
       // LOOKS LIKE IT SHOULD WORK BUT DOESN'T...WHY?
       // for(let dayData of res["Monthly Adjusted Time Series"]) {
@@ -42,9 +51,20 @@ export class DashboardComponent implements OnInit {
       //   ([key, value]) => console.log(key, value)
       // );
       
-    })
-    
+      this.allDataMonthly.reverse();
+      this.allDataMonthlyLabels.reverse();
+      console.log(`hit`)
+      this.lineChartData = [{data:this.allDataMonthly, label: "Closing"}];
+      this.isLoadingData = false;
+    }, err => {console.log(err)})
   }
+  
+  onSearchTerm(){
+    console.log(this.searchTerm);
+    this._service.setStockSymbol(this.searchTerm);
+    this.getData();
+  }
+  
   
   public lineChartData:Array<any> = [
     {data:this.allDataMonthly, label: "Closing"}
@@ -64,10 +84,10 @@ export class DashboardComponent implements OnInit {
     }
   ];
   public lineChartLegend:boolean = false;
-  public lineChartType:string = 'line';
+  public lineChartType:string = 'line';  
+  
+  
 }
-
-
 
     // import { Component } from '@angular/core';
      

@@ -11,12 +11,19 @@ import { environment } from '../environment';
 export class AlphaVantageDataService {
   apiKey=environment.apiKey;
   
-  symbol='MSFT';
+  stockSymbol:string = "AAPL";
+  setStockSymbol(searchTerm){
+    this.stockSymbol = searchTerm;
+  }
+  
+  // stockSymbol = "MSFT"
+  
   // queryType='GLOBAL_QUOTE';
   queryType='TIME_SERIES_MONTHLY_ADJUSTED';
   
   baseUrl='https://www.alphavantage.co/';
-  queryString=`function=${this.queryType}&symbol=${this.symbol}&apikey=${this.apiKey}`;
+  // queryString=`function=${this.queryType}&symbol=${this.stockSymbol}&apikey=${this.apiKey}`;
+  queryString=`function=${this.queryType}&symbol=${this.stockSymbol}&apikey=${this.apiKey}`;
   url=`${this.baseUrl}query?${this.queryString}`;
   
   constructor(private http: HttpClient) { }
