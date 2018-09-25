@@ -11,19 +11,62 @@ export class DashboardComponent implements OnInit {
   
   constructor(private _service:AlphaVantageDataService) { }
   
-  // data: any;
-  dataMonthly: any;
-  // data:any=[];
+  apiDataMonthly: any;
+  allDataMonthly: any = [];
+  allDataMonthlyLabels: any = [];
   
   ngOnInit() {
-    // this._service.getAVData().subscribe( res => this.data = res)
     
-    // this._service.getAVData().subscribe( (res:any) => {
-    //   this.dataMonthly = res;
-    //   console.log(this.dataMonthly);
-    // })
+    this._service.getAVData().subscribe( (res:any) => {
+      this.apiDataMonthly = res["Monthly Adjusted Time Series"];
+      
+      console.log(this.apiDataMonthly);
+      Object.keys(this.apiDataMonthly).map( key => {
+        // console.log(`key: ${k} value: ${this.dataMonthly[k]["4. close"]}`);
+        let dataPoint: number = this.apiDataMonthly[key]["4. close"]
+        this.allDataMonthly.push(dataPoint);
+        this.allDataMonthlyLabels.push(key);
+  
+      });
+      this.allDataMonthly.reverse();
+      this.allDataMonthlyLabels.reverse();
+      this.lineChartData = [{data:this.allDataMonthly, label: "Closing"}];
+      console.log(this.lineChartData);
+      console.log(this.allDataMonthlyLabels);
+      
+      // LOOKS LIKE IT SHOULD WORK BUT DOESN'T...WHY?
+      // for(let dayData of res["Monthly Adjusted Time Series"]) {
+      //   console.log(res["Monthly Adjusted Time Series"][dayData]["4. close"]);
+      // }
+      
+      // THIS WORKS
+      // Object.entries(this.apiDataMonthly).forEach(
+      //   ([key, value]) => console.log(key, value)
+      // );
+      
+    })
+    
   }
-
+  
+  public lineChartData:Array<any> = [
+    {data:this.allDataMonthly, label: "Closing"}
+  ];
+  public lineChartLabels:Array<any> = this.allDataMonthlyLabels;
+  public lineChartOptions:any = {
+    responsive: true
+  };
+  public lineChartColors:Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegend:boolean = false;
+  public lineChartType:string = 'line';
 }
 
 
@@ -94,5 +137,3 @@ export class DashboardComponent implements OnInit {
     //     console.log(e);
     //   }
     // }
-
-

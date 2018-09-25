@@ -12,8 +12,9 @@ export class UserService {
   
   returnUrl="home";
   
-  registrationUrl='http://mean-stack-charlie-2018-karlo-phortonssf.c9users.io:8080/api/appUsers';
-  loginUrl='http://mean-stack-charlie-2018-karlo-phortonssf.c9users.io:8080/api/appUsers/login';
+  apiBaseUrl = 'http://mean-stack-charlie-2018-karlo-phortonssf.c9users.io:8080/api/'
+  registrationUrl = `${this.apiBaseUrl}/appUsers`;
+  loginUrl = `${this.apiBaseUrl}/appUsers/login`;
   
   register(user){
     return this.http.post(this.registrationUrl, user);
