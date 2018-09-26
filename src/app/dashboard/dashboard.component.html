@@ -1,32 +1,32 @@
 <div *ngIf="isLoadingData">
-    <span class="spinner">
-        Loading...
-    </span>
+  <span class="spinner">
+      Loading...
+  </span>
 </div>
 
-<div *ngIf="!isLoadingData" class="row">
+<div *ngIf="!isLoadingData" class="column">
 
-    <input clrInput 
-           [(ngModel)]="searchTerm" 
-           type="text" 
-           id="basic" 
-           placeholder="Search by stock symbol" 
-           class="clr-input"
-           (keyup.enter)="onSearchTerm()">
-  
-
+  <input
+    clrInput 
+    [(ngModel)]="searchTerm" 
+    type="text" 
+    id="basic" 
+    placeholder="Search by stock symbol" 
+    class="clr-input"
+    (keyup.enter)="onSearchTerm()">
+  <h2>{{currentSymbol | uppercase}}</h2>
   <div class="col-md-6">
     <div style="display: block;">
-    <canvas baseChart width="400" height="400"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)">
-    </canvas>
+      <canvas baseChart width="400" height="400"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)">
+      </canvas>
     </div>
   </div>
  
