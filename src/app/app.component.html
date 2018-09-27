@@ -19,11 +19,34 @@
 <!--    </clr-tab>-->
 <!--</clr-tabs>-->
 <nav class="subnav">
-  <a class="navlink" routerLink="home"><clr-icon shape="home"></clr-icon>Home</a>
-  <!--<a class="navlink" routerLink="dashboard"><clr-icon shape="dashboard"></clr-icon>Dashboard</a>-->
-  <a *ngIf="this._userService?.userData" class="navlink" routerLink="dashboard"><clr-icon shape="dashboard"></clr-icon>Dashboard</a>
-  <a class="navlink" routerLink="login"><clr-icon shape="login"></clr-icon>Login</a>
-  <a class="navlink" routerLink="register"><clr-icon shape="user"></clr-icon>Register here!</a>
+  <a 
+    class="navlink" 
+    routerLink="home">
+    <clr-icon shape="home">
+    </clr-icon>Home</a>
+  <a 
+    *ngIf="this._userService?.userData" 
+    class="navlink" 
+    routerLink="dashboard">
+    <clr-icon shape="dashboard">
+    </clr-icon>Dashboard</a>
+  <a 
+    *ngIf="!this._userService?.userData" 
+    class="navlink" 
+    routerLink="login">
+    <clr-icon shape="login">
+    </clr-icon>Login</a>
+  <a 
+    *ngIf="this._userService?.userData" 
+    class="navlink" 
+    (click)="this._userService.logout()">
+    <clr-icon shape="logout">
+    </clr-icon>Logout</a>  
+  <a 
+    class="navlink" 
+    routerLink="register">
+    <clr-icon shape="user">
+    </clr-icon>Register</a>
 </nav>
 <div class="content-container">
     <div class="content-area">

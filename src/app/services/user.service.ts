@@ -19,6 +19,7 @@ export class UserService {
   apiBaseUrl = 'http://mean-stack-charlie-2018-karlo-phortonssf.c9users.io:8080/api'
   registrationUrl = `${this.apiBaseUrl}/appUsers`;
   loginUrl = `${this.apiBaseUrl}/appUsers/login`;
+  logoutUrl = `${this.apiBaseUrl}/appUsers/logout?access_token=${this.token}`;
   
   register(user){
     return this.http.post(this.registrationUrl, user);
@@ -26,6 +27,10 @@ export class UserService {
   
   login(user){
     return this.http.post(this.loginUrl, user);
+  }
+  
+  logout(){
+    this.http.post(this.logoutUrl)
   }
   
   toHomePage(resData){
@@ -42,8 +47,4 @@ export class UserService {
         this.userData = userRes;
       });
   }
-  
-  // isLoggedIn(){
-  //   return this.userData.hasOwnProperty("id");
-  // }
 }
