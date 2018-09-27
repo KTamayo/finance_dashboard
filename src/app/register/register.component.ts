@@ -17,10 +17,7 @@ export class RegisterComponent implements OnInit {
   onRegisterUser() {
     this._userService.register(this.user)
       .subscribe((res) => {
-        // sessionStorage.setItem('token', res.token);
-        // sessionStorage.setItem('userId', res.userId);
-        console.log(res, "asdf")
-        // this._userService.toHomePage(res);
+        this._userService.toHomePage(res);
       })
   }
 

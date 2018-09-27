@@ -1,3 +1,4 @@
-<p>
-  Welcome {{userData.firstName}} {{userData.lastName}}
+<p *ngIf="this._userService?.userData">
+  Welcome {{this._userService.userData.firstName}} {{this._userService.userData.lastName}}
 </p>
+<p *ngIf="!this._userService?.userData">Please Login</p>

@@ -20,7 +20,8 @@
 <!--</clr-tabs>-->
 <nav class="subnav">
   <a class="navlink" routerLink="home"><clr-icon shape="home"></clr-icon>Home</a>
-  <a class="navlink" routerLink="dashboard"><clr-icon shape="dashboard"></clr-icon>Dashboard</a>
+  <!--<a class="navlink" routerLink="dashboard"><clr-icon shape="dashboard"></clr-icon>Dashboard</a>-->
+  <a *ngIf="this._userService?.userData" class="navlink" routerLink="dashboard"><clr-icon shape="dashboard"></clr-icon>Dashboard</a>
   <a class="navlink" routerLink="login"><clr-icon shape="login"></clr-icon>Login</a>
   <a class="navlink" routerLink="register"><clr-icon shape="user"></clr-icon>Register here!</a>
 </nav>
