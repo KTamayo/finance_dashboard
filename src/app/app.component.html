@@ -38,11 +38,12 @@
     </clr-icon>Login</a>
   <a 
     *ngIf="this._userService?.userData" 
-    class="navlink" 
+    class="navlink logout-cursor"
     (click)="this._userService.logout()">
     <clr-icon shape="logout">
     </clr-icon>Logout</a>  
-  <a 
+  <a
+    *ngIf="!this._userService?.userData"
     class="navlink" 
     routerLink="register">
     <clr-icon shape="user">

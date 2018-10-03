@@ -1,0 +1,8 @@
+.logout-cursor{
+  cursor: pointer;
+  color: #0079b8;
+}
+.nav-flex{
+  display: flex;
+  align-content: space-around;
+}

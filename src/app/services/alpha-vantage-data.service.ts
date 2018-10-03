@@ -16,6 +16,12 @@ export class AlphaVantageDataService {
   
   stockSymbol:string="MSFT";
   queryType = 'TIME_SERIES_MONTHLY';
+  queryTypes = [
+    'TIME_SERIES_WEEKLY',
+    'TIME_SERIES_WEEKLY_ADJUSTED',
+    'TIME_SERIES_MONTHLY', 
+    'TIME_SERIES_MONTHLY_ADJUSTED',
+    ]
   baseUrl = 'https://www.alphavantage.co/';
   
   queryString = `function=${this.queryType}&symbol=${this.stockSymbol}`;

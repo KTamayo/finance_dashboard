@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
     this._userService.login(this.user)
       .subscribe((res) => {
         this._userService.toHomePage(res);
-      })
+      });
+      // }, err => {console.log(err)})
   }
 
 }

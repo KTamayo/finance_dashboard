@@ -19,6 +19,13 @@ export class DashboardComponent implements OnInit {
   allDataMonthly:Array<any>;
   allDataMonthlyLabels:Array<any>;
   
+  queryTypes = [
+    'TIME_SERIES_WEEKLY',
+    'TIME_SERIES_WEEKLY_ADJUSTED',
+    'TIME_SERIES_MONTHLY', 
+    'TIME_SERIES_MONTHLY_ADJUSTED',
+  ]
+  
   ngOnInit() {
     this.currentSymbol = this._service.stockSymbol;
     this.getData();
@@ -27,9 +34,9 @@ export class DashboardComponent implements OnInit {
   getData() {
     
     this.isLoadingData = true;
-    this.allDataMonthly = [];
+    this.allDataMonthly =  [];
     this.allDataMonthlyLabels = [];
-    this.lineChartData.length = 0;
+    this.lineChartData = [];
     
     this._service.getAVData().subscribe( (res:any) => {
       

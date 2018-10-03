@@ -10,7 +10,6 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) { }
   
-  returnUrl = "home";
   userData:any;
   loggedIn:boolean;
   token = window.sessionStorage.getItem("token");
@@ -30,13 +29,19 @@ export class UserService {
   }
   
   logout(){
-    this.http.post(this.logoutUrl)
+    // this.token = window.sessionStorage.getItem("token");
+    // this.logoutUrl = `${this.apiBaseUrl}/appUsers/logout?access_token=${this.token}`;
+    this.http.post(this.logoutUrl,{});
+    this.userData = false;
+    window.sessionStorage.removeItem("token");
+    window.sessionStorage.removeItem("userId");
+    this.router.navigate(["login"]);
   }
   
   toHomePage(resData){
     window.sessionStorage.setItem("token", resData.token);
     window.sessionStorage.setItem("userId", resData.userId);
-    this.router.navigate([this.returnUrl]);
+    this.router.navigate(["home"]);
   }
   
   getUserData(){
