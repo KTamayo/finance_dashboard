@@ -20,12 +20,12 @@
             <!--</div>-->
             <input name="username" class="username" type="text" id="login_username" placeholder="Username" [(ngModel)]="user.email">
             <input name="password" class="password" type="password" id="login_password" placeholder="Password" [(ngModel)]="user.password" (keyup.enter)="onLoginUser()">
-            <div class="checkbox">
+            <!-- <div class="checkbox">
                 <input type="checkbox" id="rememberme">
                 <label for="rememberme">
                     Remember me
                 </label>
-            </div>
+            </div> -->
             <div *ngIf="error401" class="error active">
                Invalid user name or password
             </div>
