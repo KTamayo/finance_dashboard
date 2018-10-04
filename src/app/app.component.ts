@@ -8,10 +8,10 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent {
   title = 'FinDash';
-  
+
   constructor(private _userService: UserService) { }
-  
+
   ngOnInit() {
-    this._userService.getUserData();
+    // this._userService.getUserData();
   }
 }

@@ -26,9 +26,9 @@
                     Remember me
                 </label>
             </div>
-            <!--<div class="error active">-->
-            <!--    Invalid user name or password-->
-            <!--</div>-->
+            <div *ngIf="error401" class="error active">
+               Invalid user name or password
+            </div>
             <button (click)="onLoginUser()" type="submit" class="btn btn-primary">LOGIN</button>
             <!--<a href="javascript://" class="signup">Sign up for a Company ID</a>-->
         </div>
