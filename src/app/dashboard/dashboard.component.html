@@ -4,43 +4,75 @@
   </span>
 </div>
 
-<div *ngIf="!isLoadingData" class="clr-column">
 
+<div *ngIf="!isLoadingData">
+  <div class="clr-row clr-justify-content-center">
+    <clr-dropdown class="clr-align-self-center">
+        <button type="button" class="dropdown-toggle btn btn-link" clrDropdownTrigger>
+        <!-- <button type="button" class="btn btn-outline-primary" clrDropdownTrigger> -->
+            Select API
+            <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
+            <label class="dropdown-header">Dropdown header</label>
+            <button type="button" clrDropdownItem>Action 1</button>
+            <button type="button" disabled clrDropdownItem>Disabled Action</button>
+            <div class="dropdown-divider"></div>
+            <clr-dropdown>
+                <button type="button" clrDropdownTrigger>Link 1</button>
+                <clr-dropdown-menu>
+                    <button type="button" clrDropdownItem>Foo</button>
+                    <clr-dropdown>
+                        <button type="button" clrDropdownTrigger>Bar</button>
+                        <clr-dropdown-menu clrPosition="bottom-right">
+                            <button type="button" clrDropdownItem>Baz</button>
+                        </clr-dropdown-menu>
+                    </clr-dropdown>
+                </clr-dropdown-menu>
+            </clr-dropdown>
+            <button type="button" clrDropdownItem>Link 2</button>
+        </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
 
-  
-  <input
-    clrInput 
-    [(ngModel)]="searchTerm" 
-    type="text" 
-    id="basic" 
-    placeholder="Search by stock symbol" 
-    class="clr-input"
-    (keyup.enter)="onSearchTerm()">
-  <h2>{{currentSymbol | uppercase}}</h2>
-  <div class="col-md-6">
-    <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [colors]="lineChartColors"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)">
-      </canvas>
+  <div class="clr-row clr-justify-content-center">
+    <input
+      clrInput
+      [(ngModel)]="searchTerm"
+      type="text"
+      id="basic"
+      placeholder="Search by stock symbol"
+      class="clr-input "
+      (keyup.enter)="onSearchTerm()">
+  </div>
+
+  <div class="clr-column">
+    <h2>{{currentSymbol | uppercase}}</h2>
+    <div class="col-md-6">
+      <div style="display: block;">
+        <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
     </div>
   </div>
- 
-  <!--<div class="col-md-6" style="margin-bottom: 10px">-->
-  <!--  <table class="table table-responsive table-condensed">-->
-  <!--    <tr>-->
-  <!--      <th *ngFor="let label of lineChartLabels">{{label}}</th>-->
-  <!--    </tr>-->
-  <!--    <tr *ngFor="let d of lineChartData">-->
-  <!--      <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>-->
-  <!--    </tr>-->
-  <!--  </table>-->
-    <!--<button (click)="randomize()">CLICK</button>-->
-  <!--</div>-->
 </div>
+
+<!--<div class="col-md-6" style="margin-bottom: 10px">-->
+<!--  <table class="table table-responsive table-condensed">-->
+<!--    <tr>-->
+<!--      <th *ngFor="let label of lineChartLabels">{{label}}</th>-->
+<!--    </tr>-->
+<!--    <tr *ngFor="let d of lineChartData">-->
+<!--      <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>-->
+<!--    </tr>-->
+<!--  </table>-->
+  <!--<button (click)="randomize()">CLICK</button>-->
+<!--</div>-->
