@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class UserService {
 
   constructor(private http: HttpClient, private router: Router) { }
-
+  
   userData:any;
   loggedIn:boolean;
   token = window.sessionStorage.getItem("token");
@@ -30,8 +30,6 @@ export class UserService {
   }
 
   logout(){
-    // this.token = window.sessionStorage.getItem("token");
-    // this.logoutUrl = `${this.apiBaseUrl}/appUsers/logout?access_token=${this.token}`;
     this.http.post(this.logoutUrl,{});
     this.userData = false;
     window.sessionStorage.removeItem("token");

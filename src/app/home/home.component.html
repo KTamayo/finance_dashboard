@@ -1,7 +1,12 @@
+<p *ngIf="this._userService?.token && !this._userService?.userData">
+  Loading...
+</p>
 <p *ngIf="this._userService?.userData">
   Welcome {{this._userService.userData.firstName}} {{this._userService.userData.lastName}}
 </p>
-<p *ngIf="!this._userService?.userData">Please Login</p>
+<p *ngIf="!this._userService?.token">
+  Please Login
+</p>
 
 <!--<div class="homepage-hero-module">-->
 <!--  <div class="video-container">-->
