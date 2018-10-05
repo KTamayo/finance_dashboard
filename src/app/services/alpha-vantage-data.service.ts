@@ -9,28 +9,32 @@ import { environment } from '../environment';
   providedIn: 'root'
 })
 export class AlphaVantageDataService {
-  
+
   apiKey=environment.apiKey;
-  
+
   constructor(private http: HttpClient) { }
-  
+
   stockSymbol:string="MSFT";
   queryType = 'TIME_SERIES_MONTHLY';
   queryTypes = [
     'TIME_SERIES_WEEKLY',
     'TIME_SERIES_WEEKLY_ADJUSTED',
-    'TIME_SERIES_MONTHLY', 
+    'TIME_SERIES_MONTHLY',
     'TIME_SERIES_MONTHLY_ADJUSTED',
     ]
   baseUrl = 'https://www.alphavantage.co/';
-  
+
   queryString = `function=${this.queryType}&symbol=${this.stockSymbol}`;
   url = `${this.baseUrl}query?${this.queryString}&apikey=${this.apiKey}`;
-  
+
+  setQueryType(type){
+    this.queryType = type;
+  }
+
   getAVData(){
     return this.http.get(this.url);
   }
-  
+
   setStockSymbol(searchTerm){
     this.stockSymbol = searchTerm;
     this.queryString = `function=${this.queryType}&symbol=${this.stockSymbol}`;
