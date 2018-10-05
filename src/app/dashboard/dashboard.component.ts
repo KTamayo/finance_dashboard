@@ -48,8 +48,11 @@ export class DashboardComponent implements OnInit {
   }
 
   onSearchTerm(){
-    this.currentSymbol = this.searchTerm;
+    if(typeof this.searchTerm == 'undefined') {
+      return;
+    };
     this._service.setStockSymbol(this.searchTerm);
+    this.currentSymbol = this.searchTerm;
     this.getData();
     this.searchTerm = '';
   }
