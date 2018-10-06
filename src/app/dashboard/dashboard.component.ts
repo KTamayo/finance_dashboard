@@ -10,18 +10,21 @@ import { AlphaVantageDataService } from '../services/alpha-vantage-data.service'
 
 export class DashboardComponent implements OnInit {
 
-  constructor(private _service:AlphaVantageDataService) { }
+  constructor(private _dataService:AlphaVantageDataService) { }
 
   searchTerm:string;
   selectedQueryType:string;
   currentSymbol:string;
-  isLoadingData;
+  isLoadingData:boolean;
   apiDataMonthly:any;
   allDataMonthly:Array<any>;
   allDataMonthlyLabels:Array<any>;
 
+  queryTypes = this._dataService.searchOptions.stockTimeSeries.queryTypes;
+  dataSelector = this._dataService.seriesSelector;
+
   ngOnInit() {
-    this.currentSymbol = this._service.stockSymbol;
+    this.currentSymbol = this._dataService.stockSymbol;
     this.getData();
   }
 
@@ -30,11 +33,12 @@ export class DashboardComponent implements OnInit {
     this.allDataMonthly =  [];
     this.allDataMonthlyLabels = [];
     this.lineChartData = [];
+    this.dataSelector = this._dataService.seriesSelector;
 
-    this._service.getAVData().subscribe( (res:any) => {
-
-      Object.keys(res["Monthly Time Series"]).map( key => {
-        let dataPoint: number = res["Monthly Time Series"][key]["4. close"]
+    this._dataService.getAVData().subscribe( (res:any) => {
+                
+      Object.keys(res[this.dataSelector]).map( key => {
+        let dataPoint: number = res[this.dataSelector][key]["4. close"]
         this.allDataMonthly.push(dataPoint);
         this.allDataMonthlyLabels.push(key);
       });
@@ -50,8 +54,8 @@ export class DashboardComponent implements OnInit {
   onSearchTerm(){
     if(typeof this.searchTerm == 'undefined') {
       return;
-    };
-    this._service.setStockSymbol(this.searchTerm);
+    }
+    this._dataService.setStockSymbol(this.searchTerm);
     this.currentSymbol = this.searchTerm;
     this.getData();
     this.searchTerm = '';

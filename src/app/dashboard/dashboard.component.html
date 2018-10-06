@@ -2,31 +2,32 @@
 
 <div class="clr-row clr-justify-content-center">
   <clr-dropdown class="clr-align-self-center">
-      <button type="button" class="dropdown-toggle btn btn-link" clrDropdownTrigger>
-      <!-- <button type="button" class="btn btn-outline-primary" clrDropdownTrigger> -->
+      <button
+        type="button"
+        class="dropdown-toggle btn btn-outline-primary"
+        clrDropdownTrigger>
           Search Options
           <clr-icon shape="caret down"></clr-icon>
       </button>
       <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
           <label class="dropdown-header">Search Type</label>
-          <button type="button" clrDropdownItem>Action 1</button>
-          <!-- <button type="button" disabled clrDropdownItem>Disabled Action</button> -->
-          <div class="dropdown-divider"></div>
-          <clr-dropdown *ngFor="let type of queryTypes">
-            <button clrDropdownItem type="button" (click)="this._service.setQueryType(type)">{{type}}</button>
-
-            <!-- <button type="button" clrDropdownTrigger>Link 1</button> -->
-              <!-- <clr-dropdown-menu>
-                  <button type="button" clrDropdownItem>Foo</button>
-                  <clr-dropdown>
-                      <button type="button" clrDropdownTrigger>Bar</button>
-                      <clr-dropdown-menu clrPosition="bottom-right">
-                          <button type="button" clrDropdownItem>Baz</button>
-                      </clr-dropdown-menu>
-                  </clr-dropdown>
-              </clr-dropdown-menu> -->
+          
+          <clr-dropdown>
+            <button type="button" clrDropdownTrigger>Stock Time Series</button>
+            <clr-dropdown-menu>
+              <div *ngFor="let type of this.queryTypes">
+                <button
+                  clrDropdownItem
+                  type="button"
+                  (click)="this._dataService.setQueryType(type)">
+                  {{type}}
+                </button>
+              </div>
+            </clr-dropdown-menu>
           </clr-dropdown>
-          <!-- <button type="button" clrDropdownItem>Link 2</button> -->
+
+          <button type="button" clrDropdownItem>Cryptocurrencies</button>
+
       </clr-dropdown-menu>
   </clr-dropdown>
 </div>
