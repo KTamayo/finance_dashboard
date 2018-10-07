@@ -11,11 +11,11 @@
       </button>
       <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
           <label class="dropdown-header">Search Type</label>
-          
+
           <clr-dropdown>
             <button type="button" clrDropdownTrigger>Stock Time Series</button>
             <clr-dropdown-menu>
-              <div *ngFor="let type of this.queryTypes">
+              <div *ngFor="let type of this._dataService.queryTypes.stocks">
                 <button
                   clrDropdownItem
                   type="button"

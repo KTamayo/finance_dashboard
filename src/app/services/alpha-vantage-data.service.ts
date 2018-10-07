@@ -18,17 +18,15 @@ export class AlphaVantageDataService {
   queryType:string = "TIME_SERIES_MONTHLY";
   seriesSelector:string = "Monthly Time Series";
 
-  searchOptions = {
-     stockTimeSeries: {
-       queryTypes: [
+  queryTypes = {
+     stocks: [
          "TIME_SERIES_WEEKLY",
          "TIME_SERIES_WEEKLY_ADJUSTED",
          "TIME_SERIES_MONTHLY",
          "TIME_SERIES_MONTHLY_ADJUSTED",
        ]
      },
-     cryptocurrencies: {
-       queryTypes: [
+     cryptocurrencies: [
          "DIGITAL_CURRENCY_WEEKLY",
          "DIGITAL_CURRENCY_MONTHLY"
        ]

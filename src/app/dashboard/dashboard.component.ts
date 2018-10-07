@@ -13,14 +13,11 @@ export class DashboardComponent implements OnInit {
   constructor(private _dataService:AlphaVantageDataService) { }
 
   searchTerm:string;
-  selectedQueryType:string;
   currentSymbol:string;
   isLoadingData:boolean;
-  apiDataMonthly:any;
-  allDataMonthly:Array<any>;
-  allDataMonthlyLabels:Array<any>;
+  apiData:Array<any>;
+  apiDataLabels:Array<any>;
 
-  queryTypes = this._dataService.searchOptions.stockTimeSeries.queryTypes;
   dataSelector = this._dataService.seriesSelector;
 
   ngOnInit() {
@@ -30,23 +27,23 @@ export class DashboardComponent implements OnInit {
 
   getData() {
     this.isLoadingData = true;
-    this.allDataMonthly =  [];
-    this.allDataMonthlyLabels = [];
+    this.apiData =  [];
+    this.apiDataLabels = [];
     this.lineChartData = [];
     this.dataSelector = this._dataService.seriesSelector;
 
     this._dataService.getAVData().subscribe( (res:any) => {
-                
+
       Object.keys(res[this.dataSelector]).map( key => {
         let dataPoint: number = res[this.dataSelector][key]["4. close"]
-        this.allDataMonthly.push(dataPoint);
-        this.allDataMonthlyLabels.push(key);
+        this.apiData.push(dataPoint);
+        this.apiDataLabels.push(key);
       });
 
-      this.allDataMonthly.reverse();
-      this.allDataMonthlyLabels.reverse();
-      this.lineChartData = [{data:this.allDataMonthly, label: "Closing"}];
-      this.lineChartLabels = this.allDataMonthlyLabels;
+      this.apiData.reverse();
+      this.apiDataLabels.reverse();
+      this.lineChartData = [{data:this.apiData, label: "Closing"}];
+      this.lineChartLabels = this.apiDataLabels;
       this.isLoadingData = false;
     }, err => {console.log(err)})
   }
@@ -62,9 +59,10 @@ export class DashboardComponent implements OnInit {
   }
 
   public lineChartData:Array<any> = [
+    // Toy data, perhaps should be removed if no longer affecting chart loading
     {data:[5,10,27,4,8,35], label: "Closing"}
   ];
-  public lineChartLabels:Array<any> = this.allDataMonthlyLabels;
+  public lineChartLabels:Array<any> = this.apiDataLabels;
   public lineChartOptions:any = {
     responsive: true
   };
