@@ -31,7 +31,6 @@
       </clr-dropdown-menu>
   </clr-dropdown>
 </div>
-
 <div class="clr-row clr-justify-content-center">
   <input
     clrInput
@@ -42,46 +41,63 @@
     class="clr-input"
     (keyup.enter)="onSearchTerm()">
 </div>
-
-
-  <div class="clr-row clr-justify-content-center" *ngIf="isLoadingData">
+<div class="clr-row clr-justify-content-center" *ngIf="isLoadingData">
     <span class="spinner ">
         Loading...
     </span>
   </div>
 
   <!-- <div class="clr-justify-content-center"*ngIf="!isLoadingData"> -->
-    <div class="clr-row clr-justify-content-center" *ngIf="!isLoadingData">
-      <h2 class="clr-row">
-        {{currentSymbol | uppercase}}
-      </h2>
-      <div class="col-md-5 clr-justify-content-center">
-        <div style="display: block;">
-          <canvas baseChart width="400" height="400"
-                  [datasets]="lineChartData"
-                  [labels]="lineChartLabels"
-                  [options]="lineChartOptions"
-                  [colors]="lineChartColors"
-                  [legend]="lineChartLegend"
-                  [chartType]="lineChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)">
-          </canvas>
-        </div>
+<div class="clr-row clr-justify-content-center" *ngIf="!isLoadingData">
+  <h2 class="clr-row">
+    {{currentSymbol | uppercase}}
+  </h2>
+</div>
+
+<!-- <div class="clr-row clr-justify-content-center"> -->
+<div class="clr-row" *ngIf="!isLoadingData">
+  <!-- <table class="table table-responsive table-condensed clr-justify-content-end"> -->
+  <div class="clr-col-7">
+    <!-- <h2 class="clr-row">
+      {{currentSymbol | uppercase}}
+    </h2> -->
+
+    <!-- <div class="col-md-7 clr-justify-content-center"> -->
+      <div style="display: block; max-height:75%;">
+        <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+        </canvas>
       </div>
-    </div>
-  <!-- </div> -->
 
-
-
-<!--<div class="col-md-6" style="margin-bottom: 10px">-->
-<!--  <table class="table table-responsive table-condensed">-->
-<!--    <tr>-->
-<!--      <th *ngFor="let label of lineChartLabels">{{label}}</th>-->
-<!--    </tr>-->
-<!--    <tr *ngFor="let d of lineChartData">-->
-<!--      <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>-->
-<!--    </tr>-->
-<!--  </table>-->
-  <!--<button (click)="randomize()">CLICK</button>-->
-<!--</div>-->
+  </div>
+  <div class="clr-col-5 clr-align-self-start">
+    <table class="table">
+        <caption>Data for {{lastRefreshDate}}</caption>
+        <thead>
+            <tr>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{lastRefresh["1. open"]}}</td>
+                <td>{{lastRefresh["2. high"]}}</td>
+                <td>{{lastRefresh["3. low"]}}</td>
+                <td>{{lastRefresh["4. close"]}}</td>
+                <td>{{lastRefresh["5. volume"]}}</td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</div>

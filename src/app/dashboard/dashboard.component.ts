@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   isLoadingData:boolean;
   apiData:Array<any>;
   apiDataLabels:Array<any>;
+  lastRefreshDate:any;
+  lastRefresh:any;
 
   dataSelector = this._dataService.seriesSelector;
 
@@ -44,8 +46,11 @@ export class DashboardComponent implements OnInit {
       this.apiDataLabels.reverse();
       this.lineChartData = [{data:this.apiData, label: "Closing"}];
       this.lineChartLabels = this.apiDataLabels;
+      this.lastRefreshDate = res["Meta Data"]["3. Last Refreshed"];
+      this.lastRefresh = res["Monthly Time Series"][this.lastRefreshDate];
       this.isLoadingData = false;
-    }, err => {console.log(err)})
+      }, err => {console.log(err)}
+    );
   }
 
   onSearchTerm(){
@@ -64,7 +69,8 @@ export class DashboardComponent implements OnInit {
   ];
   public lineChartLabels:Array<any> = this.apiDataLabels;
   public lineChartOptions:any = {
-    responsive: true
+    responsive: true,
+    maintainAspectRatio: true,
   };
   public lineChartColors:Array<any> = [
     { // grey

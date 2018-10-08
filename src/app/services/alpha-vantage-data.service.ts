@@ -19,19 +19,17 @@ export class AlphaVantageDataService {
   seriesSelector:string = "Monthly Time Series";
 
   queryTypes = {
-     stocks: [
-         "TIME_SERIES_WEEKLY",
-         "TIME_SERIES_WEEKLY_ADJUSTED",
-         "TIME_SERIES_MONTHLY",
-         "TIME_SERIES_MONTHLY_ADJUSTED",
-       ]
-     },
-     cryptocurrencies: [
-         "DIGITAL_CURRENCY_WEEKLY",
-         "DIGITAL_CURRENCY_MONTHLY"
-       ]
-     }
-  }
+    stocks: [
+      "TIME_SERIES_WEEKLY",
+      "TIME_SERIES_WEEKLY_ADJUSTED",
+      "TIME_SERIES_MONTHLY",
+      "TIME_SERIES_MONTHLY_ADJUSTED",
+    ],
+    cryptocurrencies: [
+      "DIGITAL_CURRENCY_WEEKLY",
+      "DIGITAL_CURRENCY_MONTHLY"
+    ]
+  };
 
   baseUrl = 'https://www.alphavantage.co/';
 
