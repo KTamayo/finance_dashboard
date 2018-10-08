@@ -17,27 +17,29 @@ export class DashboardComponent implements OnInit {
   isLoadingData:boolean;
   apiData:Array<any>;
   apiDataLabels:Array<any>;
-  lastRefreshDate:any;
   lastRefresh:any;
-
-  dataSelector = this._dataService.seriesSelector;
+  lastRefreshDate:string;
+  assetChoice:string;
+  seriesSelector:string;
+  labelSelector:string;
 
   ngOnInit() {
-    this.currentSymbol = this._dataService.stockSymbol;
+    this.currentSymbol = this._dataService.assetSymbol;
     this.getData();
   }
 
   getData() {
     this.isLoadingData = true;
-    this.apiData =  [];
+    this.apiData = [];
     this.apiDataLabels = [];
     this.lineChartData = [];
-    this.dataSelector = this._dataService.seriesSelector;
+    this.seriesSelector = this._dataService.seriesSelector;
+    this.labelSelector = this._dataService.labelSelector;
 
     this._dataService.getAVData().subscribe( (res:any) => {
 
-      Object.keys(res[this.dataSelector]).map( key => {
-        let dataPoint: number = res[this.dataSelector][key]["4. close"]
+      Object.keys(res[this.seriesSelector]).map( key => {
+        let dataPoint: number = res[this.seriesSelector][key][this.labelSelector]
         this.apiData.push(dataPoint);
         this.apiDataLabels.push(key);
       });
@@ -46,9 +48,14 @@ export class DashboardComponent implements OnInit {
       this.apiDataLabels.reverse();
       this.lineChartData = [{data:this.apiData, label: "Closing"}];
       this.lineChartLabels = this.apiDataLabels;
-      this.lastRefreshDate = res["Meta Data"]["3. Last Refreshed"];
-      this.lastRefresh = res["Monthly Time Series"][this.lastRefreshDate];
-      this.isLoadingData = false;
+
+        let refreshSelector = this._dataService.refreshSelector;
+        let lastRefreshDateString = res["Meta Data"][refreshSelector];
+        let regex = /^.*(\d{4}\-\d{2}\-\d{2})\s.*$/g;
+        this.lastRefreshDate = regex.exec(lastRefreshDateString)[1]
+        this.lastRefresh = res[this.seriesSelector][this.lastRefreshDate];
+
+      this .isLoadingData = false;
       }, err => {console.log(err)}
     );
   }
@@ -57,7 +64,8 @@ export class DashboardComponent implements OnInit {
     if(typeof this.searchTerm == 'undefined') {
       return;
     }
-    this._dataService.setStockSymbol(this.searchTerm);
+    this._dataService.setAssetType(this.assetChoice)
+    this._dataService.setAssetSymbol(this.searchTerm);
     this.currentSymbol = this.searchTerm;
     this.getData();
     this.searchTerm = '';
@@ -84,5 +92,4 @@ export class DashboardComponent implements OnInit {
   ];
   public lineChartLegend:boolean = false;
   public lineChartType:string = 'line';
-
 }

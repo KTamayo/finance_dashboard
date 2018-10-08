@@ -14,9 +14,16 @@ export class AlphaVantageDataService {
 
   constructor(private http: HttpClient) { }
 
-  stockSymbol:string = "MSFT";
+  assetSymbol:string = "MSFT";
+  assetType:string = 'stock';
   queryType:string = "TIME_SERIES_MONTHLY";
   seriesSelector:string = "Monthly Time Series";
+  refreshSelector:string = "3. Last Refreshed";
+  labelSelector:string = "4. close";
+
+  baseUrl = 'https://www.alphavantage.co/';
+  queryString = `function=${this.queryType}&symbol=${this.assetSymbol}`;
+  url = `${this.baseUrl}query?${this.queryString}&apikey=${this.apiKey}`;
 
   queryTypes = {
     stocks: [
@@ -31,17 +38,30 @@ export class AlphaVantageDataService {
     ]
   };
 
-  baseUrl = 'https://www.alphavantage.co/';
-
-  queryString = `function=${this.queryType}&symbol=${this.stockSymbol}`;
-  url = `${this.baseUrl}query?${this.queryString}&apikey=${this.apiKey}`;
-
   setSeriesSelector(){
-    if(RegExp(/MONTHLY/).test(this.queryType)){
-      this.seriesSelector = "Monthly Time Series";
+    if(RegExp(/DIGITAL.*WEEKLY/).test(this.queryType)){
+      console.log("DIGITAL_WEEKLY", this.queryType)
+      this.seriesSelector = "Time Series (Digital Currency Weekly)";
+      this.refreshSelector = "6. Last Refreshed";
+      this.labelSelector = "4b. close (USD)";
     }
-    if(RegExp(/WEEKLY/).test(this.queryType)){
+    if(RegExp(/DIGITAL.*MONTHLY/).test(this.queryType)){
+      console.log("DIGITAL_MONTHLY", this.queryType)
+      this.seriesSelector = "Time Series (Digital Currency Monthly)";
+      this.refreshSelector = "6. Last Refreshed";
+      this.labelSelector = "4b. close (USD)";
+    }
+    if(RegExp(/TIME.*MONTHLY/).test(this.queryType)){
+      console.log("MONTHLY", this.queryType)
+      this.seriesSelector = "Monthly Time Series";
+      this.refreshSelector = "3. Last Refreshed";
+      this.labelSelector = "4. close";
+    }
+    if(RegExp(/TIME.*WEEKLY/).test(this.queryType)){
+      console.log("WEEKLY", this.queryType)
       this.seriesSelector = "Weekly Time Series";
+      this.refreshSelector = "3. Last Refreshed";
+      this.labelSelector = "4. close";
     }
   }
 
@@ -50,13 +70,23 @@ export class AlphaVantageDataService {
     this.setSeriesSelector();
   }
 
-  getAVData(){
-    return this.http.get(this.url);
+  setAssetType(assetType){
+    this.assetType = assetType;
   }
 
-  setStockSymbol(searchTerm){
-    this.stockSymbol = searchTerm;
-    this.queryString = `function=${this.queryType}&symbol=${this.stockSymbol}`;
+  setAssetSymbol(searchTerm){
+    this.assetSymbol = searchTerm;
+    if (this.assetType == 'stock') {
+      this.queryString = `function=${this.queryType}&symbol=${this.assetSymbol}`;
+    }
+    if (this.assetType == 'crypto') {
+      this.queryString = `function=${this.queryType}&symbol=${this.assetSymbol}&market=USD`;
+    }
     this.url = `${this.baseUrl}query?${this.queryString}&apikey=${this.apiKey}`;
+    console.log(this.url)
+  }
+
+  getAVData(){
+    return this.http.get(this.url);
   }
 }
