@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import 'rxjs/add/operator/map';
 
 import { environment } from '../environment';
 
@@ -40,25 +39,21 @@ export class AlphaVantageDataService {
 
   setSeriesSelector(){
     if(RegExp(/DIGITAL.*WEEKLY/).test(this.queryType)){
-      console.log("DIGITAL_WEEKLY", this.queryType)
       this.seriesSelector = "Time Series (Digital Currency Weekly)";
       this.refreshSelector = "6. Last Refreshed";
       this.labelSelector = "4b. close (USD)";
     }
     if(RegExp(/DIGITAL.*MONTHLY/).test(this.queryType)){
-      console.log("DIGITAL_MONTHLY", this.queryType)
       this.seriesSelector = "Time Series (Digital Currency Monthly)";
       this.refreshSelector = "6. Last Refreshed";
       this.labelSelector = "4b. close (USD)";
     }
     if(RegExp(/TIME.*MONTHLY/).test(this.queryType)){
-      console.log("MONTHLY", this.queryType)
       this.seriesSelector = "Monthly Time Series";
       this.refreshSelector = "3. Last Refreshed";
       this.labelSelector = "4. close";
     }
     if(RegExp(/TIME.*WEEKLY/).test(this.queryType)){
-      console.log("WEEKLY", this.queryType)
       this.seriesSelector = "Weekly Time Series";
       this.refreshSelector = "3. Last Refreshed";
       this.labelSelector = "4. close";
@@ -83,7 +78,6 @@ export class AlphaVantageDataService {
       this.queryString = `function=${this.queryType}&symbol=${this.assetSymbol}&market=USD`;
     }
     this.url = `${this.baseUrl}query?${this.queryString}&apikey=${this.apiKey}`;
-    console.log(this.url)
   }
 
   getAVData(){
