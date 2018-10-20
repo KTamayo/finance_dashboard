@@ -9,7 +9,7 @@ import { environment } from '../environment';
 })
 export class AlphaVantageDataService {
 
-  apiKey=environment.apiKey;
+  apiKey = environment.apiKey;
 
   constructor(private http: HttpClient) { }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,9 @@ export class UserService {
   token = window.sessionStorage.getItem("token");
   userId = window.sessionStorage.getItem("userId");
 
-  // apiBaseUrl = 'http://mean-stack-charlie-2018-karlo-phortonssf.c9users.io:8080/api'
-  apiBaseUrl = 'http://localhost:5000/api'
+  // TODO: Need to apply dev/prod env switch logic
+  // apiBaseUrl = 'http://localhost:3000/api'
+  apiBaseUrl = environment.apiBaseUrl;
   registrationUrl = `${this.apiBaseUrl}/appUsers`;
   loginUrl = `${this.apiBaseUrl}/appUsers/login`;
   logoutUrl = `${this.apiBaseUrl}/appUsers/logout?access_token=${this.token}`;
