@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
         let refreshSelector = this._dataService.refreshSelector;
         let lastRefreshDateString = res["Meta Data"][refreshSelector];
-        let regex = /^.*(\d{4}\-\d{2}\-\d{2})\s.*$/g;
+        let regex = /^.*?(\d{4}\-\d{2}\-\d{2})\s?.*?$/g;
         this.lastRefreshDate = regex.exec(lastRefreshDateString)[1]
         this.lastRefresh = res[this.seriesSelector][this.lastRefreshDate];
 
