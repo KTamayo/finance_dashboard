@@ -9,7 +9,7 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   title = 'FinDash';
 
-  constructor(private _userService: UserService) { }
+  constructor(public _userService: UserService) { }
 
   ngOnInit() {
     this._userService.getUserData();
