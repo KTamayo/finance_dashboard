@@ -10,7 +10,7 @@ import { AlphaVantageDataService } from '../services/alpha-vantage-data.service'
 
 export class DashboardComponent implements OnInit {
 
-  constructor(private _dataService:AlphaVantageDataService) { }
+  constructor(public _dataService:AlphaVantageDataService) { }
 
   searchTerm:string;
   currentSymbol:string;
